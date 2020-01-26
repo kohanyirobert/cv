@@ -1,0 +1,7 @@
+.history/
+*.fls
+*.aux
+*.fdb_latexmk
+*.log
+*.out
+*.pdf
