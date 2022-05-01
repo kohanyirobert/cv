@@ -1,7 +1,5 @@
 # About
 
 - Edit `main.tex`
-- Run `.\build.ps1`
-- Open `main.pdf`
-
-Alternatively create `other.tex`, run `.\build.ps1 -texfile other.tex` and open `other.pdf`.
+- Run `.\build-docker.ps1` or `./build-docker.sh` or [open in Gitpod](https://gitpod.io/#https://github.com/kohanyirobert/cv)
+- View `main.pdf`

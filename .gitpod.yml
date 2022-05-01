@@ -1,0 +1,20 @@
+github:
+  prebuilds:
+    master: true
+    branches: true
+
+ports:
+  - port: 8000
+    onOpen: open-browser
+    visibility: private
+
+image:
+  file: .gitpod.Dockerfile
+
+tasks:
+  - name: Build pdf
+    command: ./build.sh
+    openMode: tab-after
+  - name: Serve pdf
+    command: ./serve.sh
+    openMode: tab-after
