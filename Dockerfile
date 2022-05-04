@@ -1,5 +1,4 @@
-# buildpack-deps:20.04
-FROM buildpack-deps@sha256:d2dccd92800ce961e0b9f65fb9293055536a01252528347a65c4e1c37608342f AS texlive
+FROM buildpack-deps:20.04@sha256:d2dccd92800ce961e0b9f65fb9293055536a01252528347a65c4e1c37608342f
 RUN curl --location --remote-name https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz \
   && mkdir --parent /tmp/tlnet \
   && tar --strip-components 1 --directory /tmp/tlnet --extract --file install-tl-unx.tar.gz \

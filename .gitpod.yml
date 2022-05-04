@@ -8,8 +8,7 @@ ports:
     onOpen: open-browser
     visibility: private
 
-image:
-  file: .gitpod.Dockerfile
+image: ghcr.io/kohanyirobert/gitpod-workspace-cv:latest@sha256:aed5951f3479aae7ead43fcb1d5628d47c907e95db6ba967e99735247b1e4067
 
 tasks:
   - name: Build pdf
