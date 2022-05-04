@@ -12,24 +12,28 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout website repo
+      - name: Checkout repo
         uses: actions/checkout@v3
-        with:
-          repository: ${{ github.repository_owner }}/kohanyirobert.github.com
-          path: kohanyirobert.github.com
 
       - name: Build PDF
         run: |
           ls -la
           ./build-docker.sh
 
-      - name: Copy PDF to CV repo
-        run: cp --verbose --force main.pdf cv/main.pdf
+      - name: Checkout website repo
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ github.repository_owner }}/kohanyirobert.github.com
+          path: kohanyirobert.github.com
 
-      - name: Configure bot Git user
+      - name: Copy PDF to website repo
+        run: cp --verbose --force main.pdf kohanyirobert.github.com/main.pdf
+
+      - name: Configure Git user
         uses: fregante/setup-git-user@v1
 
-      - name: Add CV and commit
+      - name: Commit CV to website
+        working-directory: kohanyirobert.github.com
         run: |
           git add main.pdf
           git commit --message 'Update CV'
