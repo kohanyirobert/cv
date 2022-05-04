@@ -21,8 +21,10 @@ jobs:
       - name: Copy PDF to CV repo
         run: cp --verbose --force main.pdf cv/main.pdf
 
-      - name: Add CV and commit
+      - name: Configure bot Git user
         uses: fregante/setup-git-user@v1
+
+      - name: Add CV and commit
         run: |
           git add main.pdf
           git commit --message 'Update CV'
