@@ -1,11 +1,11 @@
-name: Default
+name: Build and push image
 
 on:
   push:
     branches:
-      - master
       - main
-      - gitpod
+    paths:
+      - Dockerfile # trigger only in case the Dockerfile changes because the built image doesn't depend on any files in the repo
 
 jobs:
   build:
