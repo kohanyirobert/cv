@@ -18,6 +18,9 @@ jobs:
           repository: ${{ github.repository_owner }}/cv
           path: cv
 
+      - name: Build PDF
+        run: ./build-docker.sh
+
       - name: Copy PDF to CV repo
         run: cp --verbose --force main.pdf cv/main.pdf
 
