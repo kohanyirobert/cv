@@ -1,0 +1,29 @@
+name: Build and push CV
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - main.tex
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout CV repo
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ github.repository_owner }}/cv
+          path: cv
+
+      - name: Copy PDF to CV repo
+        run: cp --verbose --force main.pdf cv/main.pdf
+
+      - name: Add CV and commit
+        uses: fregante/setup-git-user@v1
+        run: |
+          git add main.pdf
+          git commit --message 'Update CV'
+          git push
