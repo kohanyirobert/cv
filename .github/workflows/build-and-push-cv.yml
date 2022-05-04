@@ -12,14 +12,16 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout CV repo
+      - name: Checkout website repo
         uses: actions/checkout@v3
         with:
-          repository: ${{ github.repository_owner }}/cv
-          path: cv
+          repository: ${{ github.repository_owner }}/kohanyirobert.github.com
+          path: kohanyirobert.github.com
 
       - name: Build PDF
-        run: ./build-docker.sh
+        run: |
+          ls -la
+          ./build-docker.sh
 
       - name: Copy PDF to CV repo
         run: cp --verbose --force main.pdf cv/main.pdf
