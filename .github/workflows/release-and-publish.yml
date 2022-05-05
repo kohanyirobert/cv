@@ -1,17 +1,20 @@
+name: Release and publish
+
 on:
   push:
     workflow_dispatch:
     branches:
       - main
 
-name: Release Please!
-
 jobs:
-  release-please:
+  release:
     runs-on: ubuntu-latest
+    outputs:
+      release_created: ${{ steps.release.outputs.release_created }}
+      tag_name: ${{ steps.release.outputs.tag_name }}
+      pr: ${{ steps.release.outputs.pr }}
     permissions:
       pull-requests: write
-      contents: write
     steps:
       - name: Create release
         id: release
@@ -20,18 +23,28 @@ jobs:
           release-type: simple
           package-name: cv
 
+  publish:
+    needs: release
+    if: ${{ needs.release.outputs.release_created }}
+    runs-on: ubuntu-latest
+    steps:
       - name: Checkout repo
-        if: ${{ steps.release.outputs.release_created }}
         uses: actions/checkout@v3
 
       - name: Build PDF
-        if: ${{ steps.release.outputs.release_created }}
         uses: docker://ghcr.io/kohanyirobert/cv:latest@sha256:3f344f1164a3524855813f70459403f6b6b443b55b6bc27ed3589311a40b3fed
         with:
           args: latexmk -quiet -pdflua main.tex
 
       - name: Add PDF to release
-        if: ${{ steps.release.outputs.release_created }}
-        run: gh release upload ${{ steps.release.outputs.tag_name }} main.pdf
+        run: gh release upload ${{ needs.release.outputs.tag_name }} main.pdf
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update PR label
+        run: |
+          gh pr edit ${{ needs.release.outputs.pr }} \
+            --remove-label "autorelease: tagged" \
+            --add-label "autorelease: published"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
