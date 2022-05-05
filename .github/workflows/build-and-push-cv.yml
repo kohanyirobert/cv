@@ -19,12 +19,3 @@ jobs:
         uses: docker://ghcr.io/kohanyirobert/cv:latest@sha256:3f344f1164a3524855813f70459403f6b6b443b55b6bc27ed3589311a40b3fed
         with:
           args: latexmk -pdflua main.tex
-
-      - name: Configure Git user
-        uses: fregante/setup-git-user@v1
-
-      - name: Commit CV
-        run: |
-          git add main.pdf
-          git commit --message 'Update CV'
-          git push

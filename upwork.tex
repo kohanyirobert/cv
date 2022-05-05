@@ -9,11 +9,14 @@
 \nopagenumbers{}
 
 \usepackage[utf8]{inputenc}
-\usepackage[pdfencoding=unicode,colorlinks=true]{hyperref}
 \usepackage[scale=0.8,top=1.5cm,bottom=1.5cm]{geometry}
 \usepackage{fontawesome5}
 
 \recomputelengths
+% hyperref already loaded: https://tex.stackexchange.com/a/79406/7918
+\AfterPreamble{\hypersetup{
+  pdfencoding=unicode,
+}}
 
 \setlength{\hintscolumnwidth}{2.5cm}
 
