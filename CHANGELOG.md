@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/kohanyirobert/cv/compare/v1.0.0...v1.1.0) (2022-05-05)
+
+
+### Features
+
+* add asset to release ([6fff465](https://github.com/kohanyirobert/cv/commit/6fff465105ba94c12f7ae9e4df84931675ea3d09))
+
 ## 1.0.0 (2022-05-05)
 
 
