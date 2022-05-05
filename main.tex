@@ -9,12 +9,18 @@
 \nopagenumbers{}
 
 \usepackage[utf8]{inputenc}
-\usepackage[pdfencoding=unicode,colorlinks=true]{hyperref}
 \usepackage[scale=0.8,top=1.5cm,bottom=1.5cm]{geometry}
 \usepackage{fontawesome5}
 \usepackage{fancyhdr}
 
 \recomputelengths
+% hyperref already loadede: https://tex.stackexchange.com/a/79406/7918
+\AfterPreamble{\hypersetup{
+  pdfencoding=unicode,
+  % pdfauthor={Rob Ward},
+  % pdftitle={CV for Rob Ward},
+  % pdfsubject={Detailed CV for Rob},
+}}
 
 \setlength{\hintscolumnwidth}{2.5cm}
 
