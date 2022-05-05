@@ -15,6 +15,7 @@ jobs:
       pr: ${{ steps.release.outputs.pr }}
     permissions:
       pull-requests: write
+      contents: write
     steps:
       - name: Create release
         id: release
