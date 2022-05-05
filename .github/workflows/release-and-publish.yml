@@ -12,7 +12,6 @@ jobs:
     outputs:
       release_created: ${{ steps.release.outputs.release_created }}
       tag_name: ${{ steps.release.outputs.tag_name }}
-      pr: ${{ steps.release.outputs.pr }}
     permissions:
       pull-requests: write
       contents: write
@@ -26,7 +25,7 @@ jobs:
 
   publish:
     needs: release
-    if: ${{ needs.release.outputs.release_created }}
+    if: needs.release.outputs.release_created
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -44,9 +43,14 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+  label:
+    needs: publish
+    if: needs.release.outputs.release_created && github.event.pull_request.merged
+    runs-on: ubuntu-latest
+    steps:
       - name: Update PR label
         run: |
-          gh pr edit ${{ needs.release.outputs.pr }} \
+          gh pr edit ${{ github.event.pull_request.number }} \
             --remove-label "autorelease: tagged" \
             --add-label "autorelease: published"
         env:
