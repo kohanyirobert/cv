@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.3.1](https://github.com/kohanyirobert/cv/compare/v1.3.0...v1.3.1) (2022-05-05)
+
+
+### Bug Fixes
+
+* mention remote work ([9cc0fb0](https://github.com/kohanyirobert/cv/commit/9cc0fb00e5b0232f0f7ad03e575e741abbdb21d2))
+
 ## [1.3.0](https://github.com/kohanyirobert/cv/compare/v1.2.1...v1.3.0) (2022-05-05)
 
 
