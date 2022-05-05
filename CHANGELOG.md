@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/kohanyirobert/cv/compare/v1.2.1...v1.3.0) (2022-05-05)
+
+
+### Features
+
+* include version ([1f98abe](https://github.com/kohanyirobert/cv/commit/1f98abe023997eec1d525da31fcc04889f3e6b53))
+
 ### [1.2.1](https://github.com/kohanyirobert/cv/compare/v1.2.0...v1.2.1) (2022-05-05)
 
 
