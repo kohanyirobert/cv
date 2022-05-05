@@ -21,12 +21,15 @@ jobs:
           package-name: cv
 
       - name: Checkout repo
+        if: ${{ steps.release.outputs.release_created }}
         uses: actions/checkout@v3
 
       - name: Build PDF
+        if: ${{ steps.release.outputs.release_created }}
         uses: docker://ghcr.io/kohanyirobert/cv:latest@sha256:3f344f1164a3524855813f70459403f6b6b443b55b6bc27ed3589311a40b3fed
         with:
           args: latexmk -quiet -pdflua main.tex
 
       - name: Add PDF to release
+        if: ${{ steps.release.outputs.release_created }}
         run: gh release upload ${{ steps.release.outputs.tag_name }} main.pdf
