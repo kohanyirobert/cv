@@ -2,11 +2,9 @@ name: Build and push CV
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
-    paths:
-      - main.tex
+  release:
+    types:
+      - published
 
 jobs:
   build:
@@ -19,3 +17,6 @@ jobs:
         uses: docker://ghcr.io/kohanyirobert/cv:latest@sha256:3f344f1164a3524855813f70459403f6b6b443b55b6bc27ed3589311a40b3fed
         with:
           args: latexmk -quiet -pdflua main.tex
+
+      - name: Add PDF to release
+        run: gh release upload ${{ github.event.release.tag_name }} main.pdf
