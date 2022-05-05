@@ -5,6 +5,9 @@ on:
     workflow_dispatch:
     branches:
       - main
+  pull_request:
+    types:
+      - closed
 
 jobs:
   release:
