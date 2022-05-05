@@ -3,10 +3,9 @@ on:
     workflow_dispatch:
     branches:
       - main
-    paths:
-      - main.tex
 
-name: release-please
+name: Release Please!
+
 jobs:
   release-please:
     runs-on: ubuntu-latest
