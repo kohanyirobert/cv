@@ -30,7 +30,15 @@
 \social[github]{kohanyirobert}
 \extrainfo{\faStackOverflow\href{https://stackoverflow.com/users/433835/}{ kohanyirobert}}
 
-\fancyfoot[LE,RO]{\textcolor{color2}{Updated at} \textcolor{color3}{\today}}
+\newread\versionfile
+\openin\versionfile=version.txt
+\read\versionfile to\version
+\closein\versionfile
+
+\fancyfoot[LE,RO]{
+  \textcolor{color2}{Updated at} \textcolor{color3}{\today},
+  \textcolor{color2}{Version} \textcolor{color3}{\version}
+}
 
 \begin{document}
 \makecvtitle
