@@ -10,28 +10,20 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
 
       - name: Build PDF
-        run: ./build-workflow.sh
-
-      - name: Checkout website repo
-        uses: actions/checkout@v3
+        uses: docker://ghcr.io/kohanyirobert/cv:latest@sha256:3f344f1164a3524855813f70459403f6b6b443b55b6bc27ed3589311a40b3fed
         with:
-          repository: ${{ github.repository_owner }}/kohanyirobert.github.com
-          path: kohanyirobert.github.com
-
-      - name: Copy PDF to website repo
-        run: cp --verbose --force main.pdf kohanyirobert.github.com/main.pdf
+          args: latexmk -cd -f -interaction=batchmode -pdflua -view=none main.tex
 
       - name: Configure Git user
         uses: fregante/setup-git-user@v1
 
       - name: Commit CV to website
-        working-directory: kohanyirobert.github.com
         run: |
           git add main.pdf
           git commit --message 'Update CV'
