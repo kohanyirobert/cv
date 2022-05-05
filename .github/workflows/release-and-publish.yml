@@ -5,9 +5,6 @@ on:
     workflow_dispatch:
     branches:
       - main
-  pull_request:
-    types:
-      - closed
 
 jobs:
   release:
@@ -43,18 +40,5 @@ jobs:
 
       - name: Add PDF to release
         run: gh release upload ${{ needs.release.outputs.tag_name }} main.pdf
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  label:
-    needs: publish
-    if: needs.release.outputs.release_created && github.event.pull_request.merged
-    runs-on: ubuntu-latest
-    steps:
-      - name: Update PR label
-        run: |
-          gh pr edit ${{ github.event.pull_request.number }} \
-            --remove-label "autorelease: tagged" \
-            --add-label "autorelease: published"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,19 @@
+name: Update label
+
+on:
+  pull_request:
+    types:
+      - closed
+
+jobs:
+  label:
+    if: github.event.pull_request.merged
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update PR label
+        run: |
+          gh pr edit ${{ github.event.pull_request.number }} \
+            --remove-label "autorelease: tagged" \
+            --add-label "autorelease: published"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
