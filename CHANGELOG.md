@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.3.2](https://github.com/kohanyirobert/cv/compare/v1.3.1...v1.3.2) (2022-05-05)
+
+
+### Bug Fixes
+
+* remove mention of remote work to trigger workflow ([1ad3e10](https://github.com/kohanyirobert/cv/commit/1ad3e102d9cb66c8b1150cca50b38d4e67a7d5ad))
+
 ### [1.3.1](https://github.com/kohanyirobert/cv/compare/v1.3.0...v1.3.1) (2022-05-05)
 
 
