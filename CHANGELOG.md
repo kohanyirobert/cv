@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.2.1](https://github.com/kohanyirobert/cv/compare/v1.2.0...v1.2.1) (2022-05-05)
+
+
+### Bug Fixes
+
+* provide auth for gh ([b758f96](https://github.com/kohanyirobert/cv/commit/b758f966b3b34e826e1dd7d09ba186b3c1d919f9))
+
 ## [1.2.0](https://github.com/kohanyirobert/cv/compare/v1.1.0...v1.2.0) (2022-05-05)
 
 
