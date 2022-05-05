@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.2.0](https://github.com/kohanyirobert/cv/compare/v1.1.0...v1.2.0) (2022-05-05)
+
+
+### Features
+
+* add asset to release ([3d3c6f6](https://github.com/kohanyirobert/cv/commit/3d3c6f6414d9a8c81e1469bd9683a87310c00841))
+
+
+### Bug Fixes
+
+* only use release-please props if release created ([6f3cb72](https://github.com/kohanyirobert/cv/commit/6f3cb7213a76c6d2542ed8625710ff62a69fa08d))
+
 ## [1.1.0](https://github.com/kohanyirobert/cv/compare/v1.0.0...v1.1.0) (2022-05-05)
 
 
