@@ -18,4 +18,4 @@ jobs:
       - name: Build PDF
         uses: docker://ghcr.io/kohanyirobert/cv:latest@sha256:3f344f1164a3524855813f70459403f6b6b443b55b6bc27ed3589311a40b3fed
         with:
-          args: latexmk -pdflua main.tex
+          args: latexmk -quiet -pdflua main.tex
