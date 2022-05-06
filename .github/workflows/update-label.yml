@@ -17,7 +17,7 @@ jobs:
         run: |
           gh label create \
             --color '#ededed' \
-            'autorelease: published' 2> /dev/null || echo 'Label exists'"
+            'autorelease: published' 2> /dev/null || echo 'Label exists'
 
       - name: Update PR label
         run: |
