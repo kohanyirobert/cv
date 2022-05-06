@@ -28,9 +28,11 @@ jobs:
     if: needs.release.outputs.release_created
     runs-on: ubuntu-latest
     permissions:
-      pull-requests: write
       contents: write
     steps:
+      - name: Make GitHub Actions bot the Git user
+        uses: fregante/setup-git-user@v1
+
       - name: Checkout repo
         uses: actions/checkout@v3
 
@@ -43,3 +45,37 @@ jobs:
         run: gh release upload ${{ needs.release.outputs.tag_name }} main.pdf
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload PDF artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: cv
+          path: main.pdf
+
+  publish:
+    needs:
+      - release
+      - build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Make GitHub Actions bot the Git user
+        uses: fregante/setup-git-user@v1
+
+      - name: Checkout website repo
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ github.repository_owner }}/${{ github.repository_owner }}.github.com
+          ssh-key: ${{ secrets.WEBSITE_DEPLOY_KEY }}
+
+      - name: Download PDF artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: cv
+          path: main.pdf
+
+      - name: Commit new PDF into website repo
+        run: |
+          git add main.pdf
+          git commit -m 'chore: update CV to version ${{ needs.release.outputs.tag_name }}'
+          git push
+
