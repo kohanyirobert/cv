@@ -87,4 +87,5 @@ jobs:
         run: |
           git add main.pdf
           git commit -m'chore: update CV to ${{ needs.release.outputs.tag_name }}'
+          git push
 
