@@ -7,11 +7,14 @@ on:
 
 jobs:
   label:
-    if: "github.event.pull_request.merged && contains(github.event.pull_request.labels.*.name, 'autorelease: tagged')"
+    if: github.event.pull_request.merged
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
     steps:
+      - name: Debug
+        run: echo ${{ github.event }}
+
       - name: Checkout repo
         uses: actions/checkout@v3
 
