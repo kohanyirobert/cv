@@ -12,7 +12,7 @@ jobs:
     outputs:
       release_created: ${{ steps.release.outputs.release_created }}
       tag_name: ${{ steps.release.outputs.tag_name }}
-      pr: ${{ steps.release.outputs.pr }}
+      tag_name: ${{ steps.release.outputs.pr }}
     permissions:
       pull-requests: write
       contents: write
@@ -42,19 +42,5 @@ jobs:
 
       - name: Add PDF to release
         run: gh release upload ${{ needs.release.outputs.tag_name }} main.pdf
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Create PR label (if necessary)
-        run: |
-          gh label create \
-            --color '#ededed' \
-            'autorelease: published' 2> /dev/null || echo 'Label exists'
-
-      - name: Update PR label
-        run: |
-          gh pr edit ${{ needs.release.outputs.pr }} \
-            --remove-label "autorelease: tagged" \
-            --add-label "autorelease: published"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
