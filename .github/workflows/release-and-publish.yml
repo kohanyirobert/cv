@@ -28,6 +28,7 @@ jobs:
     if: needs.release.outputs.release_created
     runs-on: ubuntu-latest
     permissions:
+      pull-requests: write
       contents: write
     steps:
       - name: Checkout repo
@@ -40,5 +41,19 @@ jobs:
 
       - name: Add PDF to release
         run: gh release upload ${{ needs.release.outputs.tag_name }} main.pdf
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create PR label (if necessary)
+        run: |
+          gh label create \
+            --color '#ededed' \
+            'autorelease: published' 2> /dev/null || echo 'Label exists'
+
+      - name: Update PR label
+        run: |
+          gh pr edit ${{ github.event.pull_request.number }} \
+            --remove-label "autorelease: tagged" \
+            --add-label "autorelease: published"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
