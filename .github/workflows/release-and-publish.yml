@@ -72,7 +72,8 @@ jobs:
     steps:
       - name: Checkout website repo
         uses: actions/checkout@v3
-        repository: ${{ github.repository_owner	}}/kohanyirobert.github.com
+        with:
+          repository: ${{ github.repository_owner	}}/kohanyirobert.github.com
 
       - name: Set Git user to GitHub Actions bot
         uses: fregante/setup-git-user@v1
