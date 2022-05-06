@@ -12,6 +12,7 @@ jobs:
     outputs:
       release_created: ${{ steps.release.outputs.release_created }}
       tag_name: ${{ steps.release.outputs.tag_name }}
+      pr: ${{ steps.release.outputs.pr }}
     permissions:
       pull-requests: write
       contents: write
@@ -52,7 +53,7 @@ jobs:
 
       - name: Update PR label
         run: |
-          gh pr edit ${{ github.event.pull_request.number }} \
+          gh pr edit ${{ needs.release.outputs.pr }} \
             --remove-label "autorelease: tagged" \
             --add-label "autorelease: published"
         env:
