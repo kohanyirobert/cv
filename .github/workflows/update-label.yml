@@ -1,13 +1,17 @@
 name: Update label
 
 on:
-  pull_request:
+  workflow_run:
+    workflows:
+      - Release and publish
+    branches:
+      - main
     types:
-      - closed
+      - completed
 
 jobs:
   label:
-    if: github.event.pull_request.merged
+    if: github.event.workflow_run.conclusion
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
