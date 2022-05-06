@@ -65,6 +65,9 @@ jobs:
       - name: Make GitHub Actions bot the Git user
         uses: fregante/setup-git-user@v1
 
+      - name: Remove existing PDF
+        run: rm -vf main.pdf
+
       - name: Download PDF artifact
         uses: actions/download-artifact@v3
         with:
