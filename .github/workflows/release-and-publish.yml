@@ -30,9 +30,6 @@ jobs:
     permissions:
       contents: write
     steps:
-      - name: Make GitHub Actions bot the Git user
-        uses: fregante/setup-git-user@v1
-
       - name: Checkout repo
         uses: actions/checkout@v3
 
