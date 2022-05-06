@@ -58,14 +58,15 @@ jobs:
       - build
     runs-on: ubuntu-latest
     steps:
-      - name: Make GitHub Actions bot the Git user
-        uses: fregante/setup-git-user@v1
-
       - name: Checkout website repo
         uses: actions/checkout@v3
         with:
           repository: ${{ github.repository_owner }}/${{ github.repository_owner }}.github.com
           ssh-key: ${{ secrets.WEBSITE_DEPLOY_KEY }}
+
+      # Must be used after the checkout action
+      - name: Make GitHub Actions bot the Git user
+        uses: fregante/setup-git-user@v1
 
       - name: Download PDF artifact
         uses: actions/download-artifact@v3
