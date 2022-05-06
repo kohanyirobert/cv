@@ -27,6 +27,8 @@ jobs:
     needs: release
     if: needs.release.outputs.release_created
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
@@ -36,56 +38,7 @@ jobs:
         with:
           args: latexmk -quiet -pdflua main.tex
 
-      - name: Upload PDF artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: cv
-          path: main.pdf
-          retention-days: 1
-
-  publish:
-    needs:
-      - release
-      - build
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
-
-      - name: Get PDF artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: cv
-
       - name: Add PDF to release
         run: gh release upload ${{ needs.release.outputs.tag_name }} main.pdf
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  website:
-    needs:
-      - release
-      - build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout website repo
-        uses: actions/checkout@v3
-        with:
-          repository: ${{ github.repository_owner	}}/kohanyirobert.github.com
-
-      - name: Set Git user to GitHub Actions bot
-        uses: fregante/setup-git-user@v1
-
-      - name: Get PDF artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: cv
-
-      - name: Commit and push CV
-        run: |
-          git add main.pdf
-          git commit -m'chore: update CV to ${{ needs.release.outputs.tag_name }}'
-          git push
-
