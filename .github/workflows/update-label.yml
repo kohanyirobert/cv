@@ -13,6 +13,12 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
 
+      - name: Create label if necessary
+        run: |
+          gh label create \
+            --color '#ededed' \
+            'autorelease: published' 2> /dev/null || echo 'Label exists'"
+
       - name: Update PR label
         run: |
           gh pr edit ${{ github.event.pull_request.number }} \
