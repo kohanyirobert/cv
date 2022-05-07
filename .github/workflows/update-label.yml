@@ -12,9 +12,6 @@ jobs:
     permissions:
       pull-requests: write
     steps:
-      - name: Debug
-        run: echo ${{ github.event }}
-
       - name: Checkout repo
         uses: actions/checkout@v3
 
