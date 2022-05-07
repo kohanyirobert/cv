@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0](https://github.com/kohanyirobert/cv/compare/v1.3.15...v1.4.0) (2022-05-07)
+
+
+### Features
+
+* mention team lead position ([3f18473](https://github.com/kohanyirobert/cv/commit/3f18473554e043f36bf799b5bbbec6c5de7d2255))
+
 ### [1.3.15](https://github.com/kohanyirobert/cv/compare/v1.3.14...v1.3.15) (2022-05-06)
 
 
