@@ -60,7 +60,7 @@ jobs:
           name: cv
 
       - name: Add PDF to release
-        run: gh release upload ${{ steps.release.outputs.tag_name }} main.pdf
+        run: gh release upload ${{ needs.release.outputs.tag_name }} main.pdf
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
