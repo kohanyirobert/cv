@@ -1,5 +1,13 @@
 # Changelog
 
+### [1.4.5](https://github.com/kohanyirobert/cv/compare/v1.4.4...v1.4.5) (2022-05-08)
+
+
+### Bug Fixes
+
+* indicate that multiple mentors were in the team ([ed1a0f2](https://github.com/kohanyirobert/cv/commit/ed1a0f2d36edc0c1e8cd94b5ed9928b3bee5a913))
+* revert last change, remove mention of several ([0843965](https://github.com/kohanyirobert/cv/commit/0843965c42ea1483d8488024dc9845e66474d4ea))
+
 ### [1.4.4](https://github.com/kohanyirobert/cv/compare/v1.4.3...v1.4.4) (2022-05-08)
 
 
