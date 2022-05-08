@@ -1,0 +1,116 @@
+name: Build, release and publish
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Build PDF
+        uses: docker://ghcr.io/kohanyirobert/cv:latest@sha256:3f344f1164a3524855813f70459403f6b6b443b55b6bc27ed3589311a40b3fed
+        with:
+          args: latexmk -quiet -pdflua main.tex
+
+      - name: Upload PDF artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: cv
+          path: main.pdf
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    outputs:
+      release_created: ${{ steps.release.outputs.release_created }}
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - id: release
+        name: Create release
+        uses: google-github-actions/release-please-action@v3
+        with:
+          release-type: simple
+          package-name: cv
+
+  upload:
+    needs: release
+    if: needs.release.outputs.release_created
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Remove existing PDF
+        run: rm -vrf main.pdf
+
+      - name: Download PDF artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: cv
+
+      - name: Add PDF to release
+        run: gh release upload ${{ steps.release.outputs.tag_name }} main.pdf
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  publish:
+    needs: release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout website repo
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ github.repository_owner }}/${{ github.repository_owner }}.github.com
+          ssh-key: ${{ secrets.WEBSITE_DEPLOY_KEY }}
+
+      - name: Make GitHub Actions bot the Git user
+        uses: fregante/setup-git-user@v1
+
+      - name: Remove existing PDF
+        run: rm -vrf main.pdf
+
+      - name: Download PDF artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: cv
+
+      - name: Commit new PDF into website repo
+        run: |
+          git add main.pdf
+          git commit -m 'chore: update CV to version ${{ needs.release.outputs.tag_name }}'
+          git push
+
+  label:
+    needs:
+      - upload
+      - publish
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      repository-projects: read
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Create PR label if necessary
+        run: |
+          gh label create --color '#ededed' 'autorelease: published' 2> /dev/null || echo 'Label exists'
+
+      - id: pr
+        name: Find last merged PR number
+        run: |
+          echo "::set-output name=number::$(gh pr list --state merged --json number --jq '.[0].number')"
+
+      - name: Add label to PR
+        run: |
+          gh pr edit ${{ steps.pr.outputs.number }} --add-label 'autorelease: published'
