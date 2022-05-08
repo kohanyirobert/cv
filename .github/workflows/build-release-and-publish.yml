@@ -107,6 +107,8 @@ jobs:
       - name: Create PR label if necessary
         run: |
           gh label create --color '#ededed' 'autorelease: published' 2> /dev/null || echo 'Label exists'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - id: pr
         name: Find last merged PR number
@@ -116,3 +118,5 @@ jobs:
       - name: Add label to PR
         run: |
           gh pr edit ${{ steps.pr.outputs.number }} --add-label 'autorelease: published'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
