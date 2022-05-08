@@ -113,7 +113,7 @@ jobs:
       - id: pr
         name: Find last merged PR number
         run: |
-          echo "::set-output name=number::$(gh pr list --state merged --json number --jq '.[0].number')"
+          echo "::set-output name=number::$(gh pr list --state merged --label 'autorelease: tagged' --json number --jq '.[0].number')"
 
       - name: Add label to PR
         run: |
