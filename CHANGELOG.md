@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.4.2](https://github.com/kohanyirobert/cv/compare/v1.4.1...v1.4.2) (2022-05-08)
+
+
+### Bug Fixes
+
+* revert last change, remove mention of several ([91f8269](https://github.com/kohanyirobert/cv/commit/91f82694079ba6f7383b8d2be643005e20b4bac8))
+
 ### [1.4.1](https://github.com/kohanyirobert/cv/compare/v1.4.0...v1.4.1) (2022-05-08)
 
 
