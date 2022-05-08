@@ -35,11 +35,21 @@ jobs:
       pull-requests: write
     steps:
       - id: release
-        name: Create release
+        name: Update release PR and create release when PR already merged
         uses: google-github-actions/release-please-action@v3
         with:
           release-type: simple
           package-name: cv
+
+      - name: Output 'Release created'
+        if: steps.release.outputs.release_created
+        run: |
+          echo ::notice title=Release created::Created new release from PR
+
+      - name: Output 'No release created'
+        if: ${{ !steps.release.outputs.release_created }}
+        run: |s
+          echo ::notice title=No release created::PR created/updated, no new release created
 
   upload:
     needs: release
