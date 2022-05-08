@@ -41,15 +41,14 @@ jobs:
           release-type: simple
           package-name: cv
 
-      - name: Output 'Release created'
-        if: steps.release.outputs.release_created
+      - name: Output whether new release were created or not
         run: |
-          echo ::notice title=Release created::Created new release from PR
-
-      - name: Output 'No release created'
-        if: ${{ !steps.release.outputs.release_created }}
-        run: |
-          echo ::notice title=No release created::PR created/updated, no new release created
+          if [ "${{ steps.release.outputs.release_created }}" == "true" ]
+          then
+            echo ::notice title=Release created::Created new release from PR
+          else
+            echo ::notice title=No release created::PR created/updated, no new release created
+          fi
 
   upload:
     needs: release
