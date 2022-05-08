@@ -48,7 +48,7 @@ jobs:
 
       - name: Output 'No release created'
         if: ${{ !steps.release.outputs.release_created }}
-        run: |s
+        run: |
           echo ::notice title=No release created::PR created/updated, no new release created
 
   upload:
