@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.4.6](https://github.com/kohanyirobert/cv/compare/v1.4.5...v1.4.6) (2022-05-09)
+
+
+### Bug Fixes
+
+* missing comma ([db05384](https://github.com/kohanyirobert/cv/commit/db05384aae52c538cbf639efb2c6263b3805f3d3))
+
 ### [1.4.5](https://github.com/kohanyirobert/cv/compare/v1.4.4...v1.4.5) (2022-05-08)
 
 
