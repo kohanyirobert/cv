@@ -24,35 +24,44 @@ jobs:
           name: cv
           path: main.pdf
 
-  release:
+  release_draft:
     needs: build
     runs-on: ubuntu-latest
     outputs:
-      release_created: ${{ steps.release.outputs.release_created }}
-      tag_name: ${{ steps.release.outputs.tag_name }}
+      release_created: ${{ steps.release_draft.outputs.release_created }}
+      tag_name: ${{ steps.release_draft.outputs.tag_name }}
     permissions:
       contents: write
       pull-requests: write
     steps:
-      - id: release
-        name: Update release PR and create release when PR already merged
+      - name: Update release PR
         uses: google-github-actions/release-please-action@v3
         with:
           release-type: simple
           package-name: cv
+          command: release-pr
 
-      - name: Output whether new release were created or not
+      - id: release_draft
+        name: Create release draft when PR already merged
+        uses: google-github-actions/release-please-action@v3
+        with:
+          release-type: simple
+          package-name: cv
+          command: github-release
+          draft: true
+
+      - name: Output whether new draft release were created or not
         run: |
-          if [ "${{ steps.release.outputs.release_created }}" == "true" ]
+          if [ "${{ steps.release_draft.outputs.release_created }}" == "true" ]
           then
-            echo ::notice title=Release created::Created new release from PR
+            echo ::notice title=Release created::Created new draft release from PR
           else
-            echo ::notice title=No release created::PR created/updated, no new release created
+            echo ::notice title=No release created::PR created/updated, no new draft release created
           fi
 
   upload:
-    needs: release
-    if: needs.release.outputs.release_created
+    needs: release_draft
+    if: needs.release_draft.outputs.release_created
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -69,13 +78,13 @@ jobs:
           name: cv
 
       - name: Add PDF to release
-        run: gh release upload ${{ needs.release.outputs.tag_name }} main.pdf
+        run: gh release upload ${{ needs.release_draft.outputs.tag_name }} main.pdf
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   publish:
-    needs: release
-    if: needs.release.outputs.release_created
+    needs: release_draft
+    if: needs.release_draft.outputs.release_created
     runs-on: ubuntu-latest
     steps:
       - name: Checkout website repo
@@ -98,7 +107,7 @@ jobs:
       - name: Commit new PDF into website repo
         run: |
           git add main.pdf
-          git commit -m 'chore: update CV to version ${{ needs.release.outputs.tag_name }}'
+          git commit -m 'chore: update CV to version ${{ needs.release_draft.outputs.tag_name }}'
           git push
 
   label:
@@ -129,5 +138,22 @@ jobs:
       - name: Add label to PR
         run: |
           gh pr edit ${{ steps.pr.outputs.number }} --add-label 'autorelease: published'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  release_final:
+    needs:
+      - publish
+      - release_draft
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: write
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Publish draft release
+        run: gh release edit --draft=false ${{ needs.release_draft.outputs.tag_name }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
