@@ -1,3 +1,5 @@
+# The latest tag refers to LTS in case of Ubuntu.
+# Using it in hope that TeX live follows the release cadence.
 FROM ubuntu:latest
 # See *Locales* at https://hub.docker.com/_/ubuntu
 RUN apt-get update && apt-get install -y \
