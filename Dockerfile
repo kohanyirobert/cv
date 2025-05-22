@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y \
   && rm -rf /var/lib/apt/lists/* \
 # Set the locale to UTF-8. Required for latexmk to work properly.
 	&& localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
-ENV LANG en_US.utf8
+ENV LANG=en_US.utf8
 # This installs the *latest* TeX Live version - installing a specific version is not really supported.
 # Archive final versions can be installed, but downloading those releases are slow(er).
 RUN curl --location --remote-name https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz \
@@ -26,8 +26,8 @@ RUN curl --location --remote-name https://mirror.ctan.org/systems/texlive/tlnet/
 # PATH, etc. must be set correctly according to the TeX Live version.
 ARG TEXLIVE_VERSION=2025
 ENV PATH=/usr/local/texlive/$TEXLIVE_VERSION/bin/x86_64-linux:$PATH
-ENV MANPATH=/usr/local/texlive/$TEXLIVE_VERSION/texmf-dist/doc/man:$MANPATH
-ENV INFOPATH=/usr/local/texlive/$TEXLIVE_VERSION/texmf-dist/doc/info:$INFOPATH
+ENV MANPATH=/usr/local/texlive/$TEXLIVE_VERSION/texmf-dist/doc/man
+ENV INFOPATH=/usr/local/texlive/$TEXLIVE_VERSION/texmf-dist/doc/info
 RUN tlmgr install \
   academicons \
   arydshln \
