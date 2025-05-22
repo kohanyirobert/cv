@@ -5,7 +5,7 @@
   "customizations": {
     "vscode": {
       "extensions": [
-        "James-Yu.latex-workshop"
+        "mathematic.vscode-pdf"
       ]
     },
     "codespaces": {
