@@ -1,4 +1,18 @@
 {
   "name": "cv",
-  "image": "ghcr.io/kohanyirobert/cv:latest"
+  "image": "ghcr.io/kohanyirobert/cv:latest",
+  "postCreateCommand": "./build.sh",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "James-Yu.latex-workshop"
+      ]
+    },
+    "codespaces": {
+      "openFiles": [
+        "main.tex",
+        "main.pdf"
+      ]
+    }
+  }
 }
