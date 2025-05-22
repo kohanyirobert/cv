@@ -5,6 +5,8 @@ FROM ubuntu:latest
 RUN apt-get update && apt-get install -y \
 # Curl required to download TeX Live installer.
   curl \
+# Needed for GitHub codespaces.
+  git \
 # Locales required to produce PDF with latexmk.
   locales \
 # Perl required to run (at least) the TeX Live installer.
