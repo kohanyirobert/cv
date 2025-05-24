@@ -60,6 +60,7 @@ jobs:
         with:
           name: pdf
           run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Add PDF to release
         run: gh release upload ${{ needs.release_draft.outputs.tag_name }} main.pdf
@@ -88,6 +89,7 @@ jobs:
         with:
           name: pdf
           run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Commit new PDF into website repo
         run: |
