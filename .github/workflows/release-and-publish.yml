@@ -20,16 +20,18 @@ jobs:
       pull-requests: write
     steps:
       - name: Update release PR
-        uses: google-github-actions/release-please-action@v3
+        uses: googleapis/release-please-action@v4
         with:
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
           release-type: simple
           package-name: cv
           command: release-pr
 
       - id: release_draft
         name: Create release draft when PR already merged
-        uses: google-github-actions/release-please-action@v3
+        uses: googleapis/release-please-action@v4
         with:
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
           release-type: simple
           package-name: cv
           command: github-release
@@ -58,7 +60,7 @@ jobs:
         run: rm -vrf main.pdf
 
       - name: Download PDF artifact
-        uses: actions/download-artifact@v4.1.7
+        uses: actions/download-artifact@v4
         with:
           name: cv
 
@@ -85,7 +87,7 @@ jobs:
         run: rm -vrf main.pdf
 
       - name: Download PDF artifact
-        uses: actions/download-artifact@v4.1.7
+        uses: actions/download-artifact@v4
         with:
           name: cv
 
