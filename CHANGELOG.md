@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.4](https://github.com/kohanyirobert/cv/compare/v1.5.3...v1.5.4) (2025-05-24)
+
+
+### Bug Fixes
+
+* replace 'and' command with comma to trigger pipeline ([eec877a](https://github.com/kohanyirobert/cv/commit/eec877ade57d826753fe5d5bbd647dbb99c5527d))
+
 ## [1.5.3](https://github.com/kohanyirobert/cv/compare/v1.5.2...v1.5.3) (2025-05-24)
 
 
