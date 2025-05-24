@@ -5,6 +5,8 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - Dockerfile # don't trigger on Dockerfile changes since that's not relevant for the CV
 
 jobs:
   build:
