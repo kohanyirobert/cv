@@ -24,7 +24,7 @@ jobs:
           args: latexmk -quiet -pdflua main.tex
 
       - name: Upload PDF artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: cv
           path: main.pdf
