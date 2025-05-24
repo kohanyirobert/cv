@@ -6,7 +6,7 @@ on:
     branches:
       - main
     paths:
-      - Dockerfile # trigger only in case the Dockerfile changes because the built image doesn't depend on any files in the repo
+      - Dockerfile
 
 jobs:
   build:

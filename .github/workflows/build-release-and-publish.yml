@@ -1,12 +1,15 @@
-name: Build, release and publish
+name: Build
 
 on:
   workflow_dispatch:
+  pull_request:
+    paths-ignore:
+      - Dockerfile
   push:
     branches:
       - main
     paths-ignore:
-      - Dockerfile # don't trigger on Dockerfile changes since that's not relevant for the CV
+      - Dockerfile
 
 jobs:
   build:
@@ -25,136 +28,3 @@ jobs:
         with:
           name: cv
           path: main.pdf
-
-  release_draft:
-    needs: build
-    runs-on: ubuntu-latest
-    outputs:
-      release_created: ${{ steps.release_draft.outputs.release_created }}
-      tag_name: ${{ steps.release_draft.outputs.tag_name }}
-    permissions:
-      contents: write
-      pull-requests: write
-    steps:
-      - name: Update release PR
-        uses: google-github-actions/release-please-action@v3
-        with:
-          release-type: simple
-          package-name: cv
-          command: release-pr
-
-      - id: release_draft
-        name: Create release draft when PR already merged
-        uses: google-github-actions/release-please-action@v3
-        with:
-          release-type: simple
-          package-name: cv
-          command: github-release
-          draft: true
-
-      - name: Output whether new draft release were created or not
-        run: |
-          if [ "${{ steps.release_draft.outputs.release_created }}" == "true" ]
-          then
-            echo ::notice title=Release created::Created new draft release from PR
-          else
-            echo ::notice title=No release created::PR created/updated, no new draft release created
-          fi
-
-  upload:
-    needs: release_draft
-    if: needs.release_draft.outputs.release_created
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
-
-      - name: Remove existing PDF
-        run: rm -vrf main.pdf
-
-      - name: Download PDF artifact
-        uses: actions/download-artifact@v4.1.7
-        with:
-          name: cv
-
-      - name: Add PDF to release
-        run: gh release upload ${{ needs.release_draft.outputs.tag_name }} main.pdf
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  publish:
-    needs: release_draft
-    if: needs.release_draft.outputs.release_created
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout website repo
-        uses: actions/checkout@v3
-        with:
-          repository: ${{ github.repository_owner }}/${{ github.repository_owner }}.github.com
-          ssh-key: ${{ secrets.WEBSITE_DEPLOY_KEY }}
-
-      - name: Make GitHub Actions bot the Git user
-        uses: fregante/setup-git-user@v1
-
-      - name: Remove existing PDF
-        run: rm -vrf main.pdf
-
-      - name: Download PDF artifact
-        uses: actions/download-artifact@v4.1.7
-        with:
-          name: cv
-
-      - name: Commit new PDF into website repo
-        run: |
-          git add main.pdf
-          git commit -m 'chore: update CV to version ${{ needs.release_draft.outputs.tag_name }}'
-          git push
-
-  label:
-    needs:
-      - upload
-      - publish
-    runs-on: ubuntu-latest
-    permissions:
-      pull-requests: write
-      repository-projects: read
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
-
-      - name: Create PR label if necessary
-        run: |
-          gh label create --color '#ededed' 'autorelease: published' 2> /dev/null || echo 'Label exists'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - id: pr
-        name: Find last merged PR number
-        run: |
-          echo "::set-output name=number::$(gh pr list --state merged --label 'autorelease: tagged' --json number --jq '.[0].number')"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Add label to PR
-        run: |
-          gh pr edit ${{ steps.pr.outputs.number }} --add-label 'autorelease: published'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  release_final:
-    needs:
-      - publish
-      - release_draft
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
-
-      - name: Publish draft release
-        run: gh release edit --draft=false ${{ needs.release_draft.outputs.tag_name }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
