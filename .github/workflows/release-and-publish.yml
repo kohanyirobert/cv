@@ -60,6 +60,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: cv
+          run_id: ${{ github.event.workflow_run.id }}
 
       - name: Add PDF to release
         run: gh release upload ${{ needs.release_draft.outputs.tag_name }} main.pdf
@@ -87,6 +88,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: cv
+          run_id: ${{ github.event.workflow_run.id }}
 
       - name: Commit new PDF into website repo
         run: |
