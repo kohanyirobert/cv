@@ -14,6 +14,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
@@ -28,3 +30,11 @@ jobs:
         with:
           name: cv
           path: main.pdf
+
+      - name: Link PDF artifact in PR
+        if: github.event_name == 'pull_request'
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            Find built PDF [here](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}).
