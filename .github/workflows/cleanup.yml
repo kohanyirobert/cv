@@ -10,6 +10,9 @@ jobs:
     permissions:
       contents: write
     steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
       - name: Delete temporary releases for PR
         run: |
           # Find and delete all releases for PR
