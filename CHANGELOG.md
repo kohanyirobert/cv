@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.5.3](https://github.com/kohanyirobert/cv/compare/v1.5.2...v1.5.3) (2025-05-24)
+
+
+### Bug Fixes
+
+* changing minor thing to test pipeline ([0a8ba83](https://github.com/kohanyirobert/cv/commit/0a8ba8351e91e745b81fd757109edb038bcf81e0))
+* remove ampersand ([c740e54](https://github.com/kohanyirobert/cv/commit/c740e54356575e6de189f08b90cb495c27a4ec5c))
+
 ## [1.5.2](https://github.com/kohanyirobert/cv/compare/v1.5.1...v1.5.2) (2025-05-24)
 
 
