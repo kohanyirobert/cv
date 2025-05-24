@@ -28,13 +28,35 @@ jobs:
       - name: Upload PDF artifact
         uses: actions/upload-artifact@v4
         with:
-          name: cv
+          name: pdf
           path: main.pdf
 
-      - name: Link PDF artifact in PR
+      - name: Upload PDF to temporary release
+        if: github.event_name == 'pull_request'
+        id: upload-pdf
+        run: |
+          # Create a temporary release for PR
+          RELEASE_TAG="pr-${{ github.event.pull_request.number }}-$(date +%Y%m%d-%H%M%S)"
+          gh release create "$RELEASE_TAG" main.pdf \
+            --title "PR #${{ github.event.pull_request.number }} - PDF preview" \
+            --notes "Temporary release for PR preview. Will be deleted automatically when PR is closed." \
+            --prerelease
+
+          # Get the download URL
+          DOWNLOAD_URL=$(gh release view "$RELEASE_TAG" --json assets --jq '.assets[0].url')
+          echo "download-url=$DOWNLOAD_URL" >> $GITHUB_OUTPUT
+          echo "release-tag=$RELEASE_TAG" >> $GITHUB_OUTPUT
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Link PDF in PR
         if: github.event_name == 'pull_request'
         uses: peter-evans/create-or-update-comment@v4
         with:
           issue-number: ${{ github.event.pull_request.number }}
           body: |
-            Find built PDF [here](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}).
+            ## 📄 PDF Build Complete
+
+            PDF successfully built! [Download](${{ steps.upload-pdf.outputs.download-url }}) or [view online](https://mozilla.github.io/pdf.js/web/viewer.html?file=${{ steps.upload-pdf.outputs.download-url }}).
+
+            > The file will be automatically cleaned up when the PR is closed.
