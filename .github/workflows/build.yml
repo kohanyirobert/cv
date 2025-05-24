@@ -43,8 +43,8 @@ jobs:
             --notes "Temporary release for PR preview. Will be deleted automatically when PR is closed." \
             --prerelease
 
-          # Get the download URL
-          DOWNLOAD_URL=$(gh release view "$RELEASE_TAG" --json assets --jq '.assets[0].url')
+          # Get the direct download URL for the PDF
+          DOWNLOAD_URL=$(gh release view "$RELEASE_TAG" --json assets --jq '.assets[0].browserDownloadUrl')
           echo "download-url=$DOWNLOAD_URL" >> $GITHUB_OUTPUT
           echo "release-tag=$RELEASE_TAG" >> $GITHUB_OUTPUT
         env:
