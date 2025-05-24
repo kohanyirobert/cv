@@ -1,0 +1,24 @@
+name: Cleanup
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Delete temporary releases for PR
+        run: |
+          # Find and delete all releases for PR
+          gh release list --json tagName,name | \
+          jq -r --arg pr "${{ github.event.pull_request.number }}" \
+          '.[] | select(.tagName | startswith("pr-" + $pr + "-")) | .tagName' | \
+          while read -r tag; do
+            echo "Deleting release: $tag"
+            gh release delete "$tag" --yes || echo "Failed to delete $tag (may not exist)"
+          done
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
