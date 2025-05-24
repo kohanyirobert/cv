@@ -11,7 +11,6 @@ on:
 
 jobs:
   release_draft:
-    needs: build
     runs-on: ubuntu-latest
     outputs:
       release_created: ${{ steps.release_draft.outputs.release_created }}
