@@ -58,7 +58,7 @@ jobs:
       - name: Download PDF artifact
         uses: actions/download-artifact@v4
         with:
-          name: cv
+          name: pdf
           run-id: ${{ github.event.workflow_run.id }}
 
       - name: Add PDF to release
@@ -86,7 +86,7 @@ jobs:
       - name: Download PDF artifact
         uses: actions/download-artifact@v4
         with:
-          name: cv
+          name: pdf
           run-id: ${{ github.event.workflow_run.id }}
 
       - name: Commit new PDF into website repo
