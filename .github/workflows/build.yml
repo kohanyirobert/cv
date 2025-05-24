@@ -15,8 +15,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      pull-requests: write
       contents: write
+    outputs:
+      download-url: ${{ steps.upload-pdf.outputs.download-url }}
+      release-tag: ${{ steps.upload-pdf.outputs.release-tag }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
@@ -50,8 +52,14 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+  comment:
+    if: github.event_name == 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
       - name: Find PDF build comment
-        if: github.event_name == 'pull_request'
         uses: peter-evans/find-comment@v3
         id: find-comment
         with:
@@ -59,8 +67,7 @@ jobs:
           comment-author: 'github-actions[bot]'
           body-includes: '<!-- pdf-build-comment -->'
 
-      - name: Link PDF
-        if: github.event_name == 'pull_request'
+      - name: Update PDF comment
         uses: peter-evans/create-or-update-comment@v4
         with:
           issue-number: ${{ github.event.pull_request.number }}
@@ -69,7 +76,7 @@ jobs:
           body: |
             ## 📄 PDF Build Complete
 
-            [Download](${{ steps.upload-pdf.outputs.download-url }}).
+            [Download](${{ needs.build.outputs.download-url }}).
 
             > Deleted automatically when the PR is closed.
 
