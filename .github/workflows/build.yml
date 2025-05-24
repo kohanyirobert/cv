@@ -69,8 +69,8 @@ jobs:
           body: |
             ## 📄 PDF Build Complete
 
-            PDF successfully built! [Download](${{ steps.upload-pdf.outputs.download-url }}) or [view online](https://mozilla.github.io/pdf.js/web/viewer.html?file=${{ steps.upload-pdf.outputs.download-url }}).
+            [Download](${{ steps.upload-pdf.outputs.download-url }}).
 
-            > The file will be automatically cleaned up when the PR is closed.
+            > Deleted automatically when the PR is closed.
 
             <!-- pdf-build-comment -->
