@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.2](https://github.com/kohanyirobert/cv/compare/v1.5.1...v1.5.2) (2025-05-24)
+
+
+### Bug Fixes
+
+* add Terraform and ASP.NET ([541f0ef](https://github.com/kohanyirobert/cv/commit/541f0ef8ad2f726578b402d81b8e14e06f5b9e58))
+
 ## [1.5.1](https://github.com/kohanyirobert/cv/compare/v1.5.0...v1.5.1) (2025-05-24)
 
 
