@@ -21,7 +21,7 @@ jobs:
       release-tag: ${{ steps.upload-pdf.outputs.release-tag }}
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Build PDF
         uses: docker://ghcr.io/kohanyirobert/cv:latest

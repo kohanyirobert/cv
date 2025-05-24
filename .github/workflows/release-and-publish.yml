@@ -50,7 +50,7 @@ jobs:
       contents: write
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Remove existing PDF
         run: rm -vrf main.pdf
@@ -72,10 +72,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout website repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: ${{ github.repository_owner }}/${{ github.repository_owner }}.github.com
-          ssh-key: ${{ secrets.WEBSITE_DEPLOY_KEY }}
+          token: ${{ secrets.WEBSITE_DEPLOY_TOKEN }}
 
       - name: Make GitHub Actions bot the Git user
         uses: fregante/setup-git-user@v1
@@ -105,7 +105,7 @@ jobs:
       repository-projects: read
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Create PR label if necessary
         run: |
@@ -135,7 +135,7 @@ jobs:
       contents: write
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Publish draft release
         run: gh release edit --draft=false ${{ needs.release_draft.outputs.tag_name }}
