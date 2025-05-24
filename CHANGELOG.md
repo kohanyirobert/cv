@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.1](https://github.com/kohanyirobert/cv/compare/v1.5.0...v1.5.1) (2025-05-24)
+
+
+### Bug Fixes
+
+* update README ([f09c1d2](https://github.com/kohanyirobert/cv/commit/f09c1d287231b5a6bd32397fac99c5179d3a7ee6))
+
 ## [1.5.0](https://github.com/kohanyirobert/cv/compare/v1.4.6...v1.5.0) (2025-05-24)
 
 
