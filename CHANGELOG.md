@@ -1,5 +1,31 @@
 # Changelog
 
+## [1.5.0](https://github.com/kohanyirobert/cv/compare/v1.4.6...v1.5.0) (2025-05-24)
+
+
+### Features
+
+* add permissions for pull requests and link PDF artifact in PR ([228649e](https://github.com/kohanyirobert/cv/commit/228649e04d81350878f2cb1f734621b37be3c7f3))
+* enhance PDF build comment linking in PRs ([5d479de](https://github.com/kohanyirobert/cv/commit/5d479de7971b48fefee724f0665856c83d49e175))
+* implement PDF upload to temporary release and cleanup workflow for PRs ([1ac73f5](https://github.com/kohanyirobert/cv/commit/1ac73f55204e3557788138f5e0b4854a13d96556))
+* split mentor/TL role, fix bad link ([2bc5087](https://github.com/kohanyirobert/cv/commit/2bc5087e4e1c046e5d4ee34c9a6cca2bac0a8204))
+
+
+### Bug Fixes
+
+* add checkout to allow gh tool usage ([a895fa2](https://github.com/kohanyirobert/cv/commit/a895fa2d400742d7d96907a52ee5f28a741d505f))
+* change PDF build comment edit mode from append to replace ([c9cf0b1](https://github.com/kohanyirobert/cv/commit/c9cf0b12e85c1df1673adb0cbe2ef8b84cab4ac7))
+* change PDF build comment edit mode to append ([21aa993](https://github.com/kohanyirobert/cv/commit/21aa993bd43105a0e2d8d9bc01b73385b2c24629))
+* correct capitalization in workflow name for consistency ([2008aa3](https://github.com/kohanyirobert/cv/commit/2008aa328cedcacc3500427e142b0e46ed5338e3))
+* correct environment variable syntax and clean up MANPATH and INFOPATH ([4ef21b2](https://github.com/kohanyirobert/cv/commit/4ef21b23df692a8128215286897a9bcf3dc73c01))
+* remove unnecessary dependency on build job in release draft ([9145e95](https://github.com/kohanyirobert/cv/commit/9145e95200e54f8d911832d3d1488494d1dcbb99))
+* reverting previous fix ([0d8748f](https://github.com/kohanyirobert/cv/commit/0d8748fd2c55f92a87f1c354271ed043be033fd1))
+* split build job into two halves ([a4d75a6](https://github.com/kohanyirobert/cv/commit/a4d75a62b236599c2f865e08049e9febf16dc74e))
+* update download URL retrieval for PDF in temporary release ([d72a38b](https://github.com/kohanyirobert/cv/commit/d72a38bfa89ee582220122c38f6656c37e1497d7))
+* update paths-ignore to prevent triggering on Dockerfile changes ([e2b496a](https://github.com/kohanyirobert/cv/commit/e2b496ad98ed0857e899b32f2811faa9b2cd681e))
+* update PDF build comment for clarity and link formatting ([fe7b911](https://github.com/kohanyirobert/cv/commit/fe7b911ee621110bb1a82097c33a7d7b28fbb58c))
+* update release please, use custom PAT ([84bfc9a](https://github.com/kohanyirobert/cv/commit/84bfc9a64f493c59c9f9e979007f9c4d408d35c8))
+
 ### [1.4.6](https://github.com/kohanyirobert/cv/compare/v1.4.5...v1.4.6) (2022-05-09)
 
 
