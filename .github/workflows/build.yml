@@ -50,14 +50,27 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Link PDF in PR
+      - name: Find PDF build comment
+        if: github.event_name == 'pull_request'
+        uses: peter-evans/find-comment@v3
+        id: find-comment
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-author: 'github-actions[bot]'
+          body-includes: '<!-- pdf-build-comment -->'
+
+      - name: Link PDF
         if: github.event_name == 'pull_request'
         uses: peter-evans/create-or-update-comment@v4
         with:
           issue-number: ${{ github.event.pull_request.number }}
+          comment-id: ${{ steps.find-comment.outputs.comment-id }}
+          edit-mode: replace
           body: |
             ## 📄 PDF Build Complete
 
             PDF successfully built! [Download](${{ steps.upload-pdf.outputs.download-url }}) or [view online](https://mozilla.github.io/pdf.js/web/viewer.html?file=${{ steps.upload-pdf.outputs.download-url }}).
 
             > The file will be automatically cleaned up when the PR is closed.
+
+            <!-- pdf-build-comment -->
