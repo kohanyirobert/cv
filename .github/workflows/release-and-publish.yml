@@ -24,8 +24,7 @@ jobs:
         with:
           token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
           release-type: simple
-          package-name: cv
-          command: release-pr
+          skip-github-release: true
 
       - id: release_draft
         name: Create release draft when PR already merged
@@ -33,9 +32,7 @@ jobs:
         with:
           token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
           release-type: simple
-          package-name: cv
-          command: github-release
-          draft: true
+          skip-github-pull-request: true
 
       - name: Output whether new draft release were created or not
         run: |
