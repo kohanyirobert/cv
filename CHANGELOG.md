@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.7](https://github.com/kohanyirobert/cv/compare/v1.5.6...v1.5.7) (2026-08-18)
+
+
+### Bug Fixes
+
+* pin TeX Live and the base image ([#68](https://github.com/kohanyirobert/cv/issues/68)) ([093a853](https://github.com/kohanyirobert/cv/commit/093a853716222cd86d44ecf7fd74aca21cab2229))
+
 ## [1.5.6](https://github.com/kohanyirobert/cv/compare/v1.5.5...v1.5.6) (2026-08-18)
 
 
