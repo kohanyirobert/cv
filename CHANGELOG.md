@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.6](https://github.com/kohanyirobert/cv/compare/v1.5.5...v1.5.6) (2026-08-18)
+
+
+### Bug Fixes
+
+* position the title as Software Engineer, Team Lead ([#62](https://github.com/kohanyirobert/cv/issues/62)) ([4c9e7fc](https://github.com/kohanyirobert/cv/commit/4c9e7fc9030a22b0839946416571728dd1355c4d))
+
 ## [1.5.5](https://github.com/kohanyirobert/cv/compare/v1.5.4...v1.5.5) (2026-08-18)
 
 
