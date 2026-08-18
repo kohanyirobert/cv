@@ -10,25 +10,20 @@ Everything needed to build is in a container image, so no TeX Live installation
 is required locally — only [Podman](https://podman.io).
 
 ```bash
-./build-podman.sh
+./build-podman.sh            # one-shot build
+./build-podman.sh --watch    # rebuild on every save, Ctrl-C to stop
 ```
 
-This watches `main.tex` and rebuilds `main.pdf` on every save. Stop it with
-`Ctrl-C`. Pass a different file as the first argument if needed.
+Pass a different `.tex` file as the last argument if needed.
 
-For a single build that exits when it is done:
+The *Build* workflow runs this same script, so a successful local build means
+CI will build too. Keep it that way — if the build ever needs different flags,
+change them here rather than in `.github/workflows/build.yml`.
 
-```bash
-podman run --rm --net=none \
-  --mount type=bind,source="$PWD",target=/data \
-  --workdir /data \
-  ghcr.io/kohanyirobert/cv:latest \
-  latexmk -quiet -interaction=nonstopmode -pdflua main.tex
-```
-
-Do not add `--user=$(id -u):$(id -g)`. Rootless Podman already maps the
-container's root to the invoking user, so output is correctly owned without it;
-passing it lands on an unprivileged subuid that cannot write to the bind mount.
+Do not add `--user=$(id -u):$(id -g)` to the podman invocation. Rootless Podman
+already maps the container's root to the invoking user, so output is correctly
+owned without it; passing it lands on an unprivileged subuid that cannot write
+to the bind mount.
 
 The CV must stay **one page**. Check after any change:
 

@@ -19,10 +19,10 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
+      # Same script developers run locally, so the two cannot drift apart.
+      # Podman ships on the ubuntu-24.04 runner image, so no setup is needed.
       - name: Build PDF
-        uses: docker://ghcr.io/kohanyirobert/cv:latest
-        with:
-          args: latexmk -quiet -pdflua main.tex
+        run: ./build-podman.sh
 
       - name: Upload PDF artifact
         uses: actions/upload-artifact@v4
