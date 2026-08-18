@@ -2,11 +2,10 @@
 texfile=${1:-main.tex}
 
 image=ghcr.io/kohanyirobert/cv:latest
-docker run \
+podman run \
   --rm \
   --interactive \
   --tty \
-  --user=$(id -u):$(id -g) \
   --net=none \
   --mount type=bind,source="$PWD",target=/data \
   --workdir /data \
