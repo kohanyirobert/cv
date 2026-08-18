@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.8](https://github.com/kohanyirobert/cv/compare/v1.5.7...v1.5.8) (2026-08-18)
+
+
+### Bug Fixes
+
+* build the CV the same way locally and in CI ([#74](https://github.com/kohanyirobert/cv/issues/74)) ([f1568fa](https://github.com/kohanyirobert/cv/commit/f1568fa3d0865f50d6feb13670cd71aebec4e8f7))
+
 ## [1.5.7](https://github.com/kohanyirobert/cv/compare/v1.5.6...v1.5.7) (2026-08-18)
 
 
