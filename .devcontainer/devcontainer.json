@@ -1,7 +1,8 @@
 {
   "name": "cv",
   "image": "ghcr.io/kohanyirobert/cv:latest",
-  "postCreateCommand": "./build.sh",
+  "postCreateCommand": "latexmk -f -interaction=batchmode -pdflua main.tex",
+  "postAttachCommand": "./build.sh",
   "customizations": {
     "vscode": {
       "extensions": [
