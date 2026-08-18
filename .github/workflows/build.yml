@@ -3,13 +3,9 @@ name: Build
 on:
   workflow_dispatch:
   pull_request:
-    paths-ignore:
-      - Dockerfile
   push:
     branches:
       - main
-    paths-ignore:
-      - Dockerfile
 
 jobs:
   build:
