@@ -119,7 +119,7 @@ jobs:
       - id: pr
         name: Find last merged PR number
         run: |
-          echo "::set-output name=number::$(gh pr list --state merged --label 'autorelease: tagged' --json number --jq '.[0].number')"
+          echo "number=$(gh pr list --state merged --label 'autorelease: tagged' --json number --jq '.[0].number')" >> "$GITHUB_OUTPUT"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
