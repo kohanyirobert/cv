@@ -1,5 +1,24 @@
 # Changelog
 
+## [1.5.5](https://github.com/kohanyirobert/cv/compare/v1.5.4...v1.5.5) (2026-08-18)
+
+
+### Bug Fixes
+
+* add an ownership line to soft skills ([ca82187](https://github.com/kohanyirobert/cv/commit/ca82187d0ad3801612b334098abd418b48442f68))
+* add database and domain design to data skills ([92fb9e8](https://github.com/kohanyirobert/cv/commit/92fb9e83f7d268b60aab19f3f2b09997694fea83))
+* cover recurring B2B courses without foregrounding English ([ff6aa1d](https://github.com/kohanyirobert/cv/commit/ff6aa1d0a965ecf166999e8c7309242ec1108b9a))
+* describe programming breadth as polyglot ([a2be16f](https://github.com/kohanyirobert/cv/commit/a2be16ff5d825abda8a47e0f79a0debf7581d5a7))
+* fold skills sections and compress older roles ([1d388ae](https://github.com/kohanyirobert/cv/commit/1d388ae9431d0aa2e3c89706ad2af41e6fc82c30))
+* give team size as a range over the whole tenure ([0e45c1f](https://github.com/kohanyirobert/cv/commit/0e45c1f6500863d3b189cc43db81c5cece3f1343))
+* lead platform skills with DevOps ([a10670d](https://github.com/kohanyirobert/cv/commit/a10670d7c6c48f7345bacf7691bf1b1987302753))
+* name the client and bullet the AI support entry ([421c448](https://github.com/kohanyirobert/cv/commit/421c448498532e088ab86ba8261439aaaee70051))
+* note the C1 English certificate ([5b0bc7f](https://github.com/kohanyirobert/cv/commit/5b0bc7fb1d5ad5cb0918da506b18f92e8b938426))
+* refresh CV content for 2026 ([27b52bf](https://github.com/kohanyirobert/cv/commit/27b52bf1dae1b349df9a0aaa57ad6aa2dea8517c))
+* reword the interviewing skill ([ae2feb9](https://github.com/kohanyirobert/cv/commit/ae2feb97301214b269285e04086e8587ece003b6))
+* shorten the capacity planning bullet ([b0b253f](https://github.com/kohanyirobert/cv/commit/b0b253ff1dab6fdf28723ee5b4d739207c83d02f))
+* tighten the product redesign bullet ([40e7c83](https://github.com/kohanyirobert/cv/commit/40e7c83a2d7eb6b74f166c4c1c302c854e1f5dbb))
+
 ## [1.5.4](https://github.com/kohanyirobert/cv/compare/v1.5.3...v1.5.4) (2025-05-24)
 
 
